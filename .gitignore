@@ -1,0 +1,5 @@
+Backend/node_modules/
+Backend/.env
+# Ignore node_modules directory
+
+Frontend/node_modules/
