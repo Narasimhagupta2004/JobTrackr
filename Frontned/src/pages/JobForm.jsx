@@ -64,7 +64,7 @@ const JobForm = () => {
         },
       };
 
-      await axios.post('http://localhost:5000/api/jobs', formData, config);
+      await axios.post('https://jobtrackr-z7yh.onrender.com/api/jobs', formData, config);
 
       setLoading(false);
       navigate('/');
