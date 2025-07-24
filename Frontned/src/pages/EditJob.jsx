@@ -36,7 +36,7 @@ const EditJob = () => {
       try {
         const token = localStorage.getItem('token');
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        const res = await axios.get(`https://jobtrackr-z7yh.onrender.com/api/jobs/${id}`, config);
+        const res = await axios.get(`http://localhost:5000/api/jobs/${id}`, config);
         const job = res.data;
         setFormData({
           company: job.company || '',
@@ -68,7 +68,7 @@ const EditJob = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.put(`https://jobtrackr-z7yh.onrender.com/api/jobs/${id}`, formData, config);
+      await axios.put(`http://localhost:5000/api/jobs/${id}`, formData, config);
       setSuccess('Job updated successfully!');
       setTimeout(() => navigate('/jobs'), 1500);
     } catch (err) {

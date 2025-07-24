@@ -10,6 +10,7 @@ import {
   Grid,
   Paper,
   Stack,
+  Snackbar,
 } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +29,7 @@ const JobForm = () => {
   });
   const [files, setFiles] = useState({ resume: null, jd: null });
   const [error, setError] = useState('');
+  const [successOpen, setSuccessOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -49,7 +51,6 @@ const JobForm = () => {
       if (!token) throw new Error('You must be logged in');
 
       const formData = new FormData();
-
       Object.entries(form).forEach(([key, val]) => {
         if (val) formData.append(key, val);
       });
@@ -59,15 +60,18 @@ const JobForm = () => {
 
       const config = {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          // 'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       };
 
-      await axios.post('https://jobtrackr-z7yh.onrender.com/api/jobs', formData, config);
+      await axios.post('http://localhost:5000/api/jobs', formData, config);
 
+      setSuccessOpen(true);
       setLoading(false);
+      setTimeout(() => {
       navigate('/');
+      }, 1000); 
     } catch (err) {
       setError(err.response?.data?.msg || err.message || 'Failed to create job');
       setLoading(false);
@@ -76,8 +80,17 @@ const JobForm = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 6, mb: 6 }}>
-      <Paper elevation={6} sx={{ p: 4, borderRadius: 3, boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
-        <Typography variant="h4" mb={3} fontWeight="bold" align="center" color="primary">
+      <Paper
+        elevation={6}
+        sx={{ p: 4, borderRadius: 3, boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}
+      >
+        <Typography
+          variant="h4"
+          mb={3}
+          fontWeight="bold"
+          align="center"
+          color="primary"
+        >
           Add New Job Application
         </Typography>
 
@@ -171,7 +184,12 @@ const JobForm = () => {
                   />
                 </Button>
                 {files.resume && (
-                  <Typography variant="caption" mt={0.5} display="block" textAlign="center">
+                  <Typography
+                    variant="caption"
+                    mt={0.5}
+                    display="block"
+                    textAlign="center"
+                  >
                     {files.resume.name}
                   </Typography>
                 )}
@@ -189,7 +207,12 @@ const JobForm = () => {
                   />
                 </Button>
                 {files.jd && (
-                  <Typography variant="caption" mt={0.5} display="block" textAlign="center">
+                  <Typography
+                    variant="caption"
+                    mt={0.5}
+                    display="block"
+                    textAlign="center"
+                  >
                     {files.jd.name}
                   </Typography>
                 )}
@@ -210,8 +233,26 @@ const JobForm = () => {
           </Stack>
         </Box>
       </Paper>
+
+      {/* ✅ Success Snackbar */}
+      <Snackbar
+        open={successOpen}
+        autoHideDuration={4000}
+        onClose={() => setSuccessOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSuccessOpen(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Job application added successfully!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
 
 export default JobForm;
+

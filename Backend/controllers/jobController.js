@@ -3,6 +3,7 @@ const Job = require('../models/Job');
 
 exports.createJob = async (req, res) => {
   try {
+    console.log('Authenticated user:', req.user);
     const { company, position } = req.body;
     if (!company || !position) {
       return res.status(400).json({ msg: 'Company and position are required' });
@@ -18,8 +19,7 @@ exports.createJob = async (req, res) => {
       resumePath,
       jdPath
     });
-
-    res.status(201).json(job);
+    res.status(201).json({ success: true, message: 'Job added successfully', job });
   } catch (err) {
     res.status(400).json({ msg: err.message });
   }

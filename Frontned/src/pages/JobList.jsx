@@ -28,7 +28,7 @@ const JobList = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.get('https://jobtrackr-z7yh.onrender.com/api/jobs', config);
+      const res = await axios.get('http://localhost:5000/api/jobs', config);
       setJobs(res.data);
     } catch (err) {
       setError(err.response?.data?.msg || err.message);
@@ -47,7 +47,7 @@ const JobList = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`https://jobtrackr-z7yh.onrender.com/api/jobs/${id}`, config);
+      await axios.delete(`http://localhost:5000/api/jobs/${id}`, config);
       setJobs(prev => prev.filter(job => job._id !== id));
     } catch (err) {
       alert(err.response?.data?.msg || 'Failed to delete job');

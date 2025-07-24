@@ -52,7 +52,7 @@ const Dashboard = () => {
         if (!token) throw new Error('Not authenticated');
 
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        const resJobs = await axios.get('https://jobtrackr-z7yh.onrender.com/api/jobs', config);
+        const resJobs = await axios.get('http://localhost:5000/api/jobs', config);
         setJobs(resJobs.data);
 
         // Decode user from token for greeting (simple)
@@ -74,7 +74,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`https://jobtrackr-z7yh.onrender.com/api/jobs/${id}`, config);
+      await axios.delete(`http://localhost:5000/api/jobs/${id}`, config);
       setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
     } catch (err) {
       alert('Failed to delete job');

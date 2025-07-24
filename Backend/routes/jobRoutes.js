@@ -18,7 +18,7 @@ router.use(protect);
 
 // Create job with resume & jd file upload
 router.post(
-  '/',
+  '/',protect,
   upload.fields([
     { name: 'resume', maxCount: 1 },
     { name: 'jd', maxCount: 1 }

@@ -21,7 +21,8 @@ const jobSchema = new mongoose.Schema(
       default: 'Applied'
     },
     source: {
-      type: String // e.g., LinkedIn, Referral, etc.
+      type: String, // e.g., LinkedIn, Referral, etc.
+      default: 'LinkedIn'
     },
     deadline: {
       type: Date
