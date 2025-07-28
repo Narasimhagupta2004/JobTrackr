@@ -14,6 +14,8 @@ import EditJob from './pages/EditJob';
 import Profile from './pages/Profile';
 import EmailTestDemo from './components/EmailTestDemo';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChangePassword from './pages/Change-Password';
+import NotFound from './pages/NotFound';
 function App() {
   const token = localStorage.getItem('token');
 
@@ -51,6 +53,14 @@ function App() {
           <ProtectedRoute>
             <EditJob />
           </ProtectedRoute>
+        } />
+        <Route path="/change-password" element={
+          <ProtectedRoute>
+            <ChangePassword />
+          </ProtectedRoute>
+        } />
+        <Route path="*" element={
+          <NotFound />
         } />
       </Routes>
       </Navbar>

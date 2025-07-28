@@ -29,9 +29,13 @@ export const authApi = {
   getProfile: (token) => api.get("/auth/profile", {
     headers: { Authorization: `Bearer ${token}` }
   }),
+  // Change user password
+  changePassword: (data, token) => api.post("/auth/change-password", data, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
 };
 
 // Export individual functions for convenience
-export const { signup, login, forgotPassword, verifyOtp, getProfile } = authApi;
+export const { signup, login, forgotPassword, verifyOtp, getProfile, changePassword } = authApi;
 
 export default authApi;
