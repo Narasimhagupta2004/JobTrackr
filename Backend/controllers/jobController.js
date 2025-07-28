@@ -29,7 +29,12 @@ exports.createJob = async (req, res) => {
 exports.getJobs = async (req, res) => {
   try {
     const jobs = await Job.find({ user: req.user._id }).sort({ createdAt: -1 });
-    res.json(jobs);
+    const jobsWithUrls = jobs.map(job => ({
+      ...job.toObject(),
+      resumeUrl: job.resumePath ? `/uploads/${job.resumePath}` : null,
+      jdUrl: job.jdPath ? `/uploads/${job.jdPath}` : null
+    }));
+    res.json(jobsWithUrls);
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }

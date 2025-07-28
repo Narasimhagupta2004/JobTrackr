@@ -13,6 +13,7 @@ import {
   CircularProgress,
   Tooltip,
   Box,
+  Button,
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import axios from 'axios';
@@ -87,6 +88,8 @@ const JobList = () => {
                 <TableCell>Status</TableCell>
                 <TableCell>Source</TableCell>
                 <TableCell>Deadline</TableCell>
+                <TableCell>Resume</TableCell> 
+                <TableCell>JD</TableCell>     
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -99,6 +102,36 @@ const JobList = () => {
                   <TableCell>{job.source || '-'}</TableCell>
                   <TableCell>
                     {job.deadline ? new Date(job.deadline).toLocaleDateString() : '-'}
+                  </TableCell>
+                  <TableCell>
+                    {job.resumeUrl ? (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        href={`http://localhost:5000${job.resumeUrl}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{ textTransform: 'none' }}
+                      >
+                        View
+                      </Button>
+                    ) : '-'}
+                  </TableCell>
+                  <TableCell>
+                    {job.jdUrl ? (
+                      <Button
+                        variant="contained"
+                        color="info"
+                        size="small"
+                        href={`http://localhost:5000${job.jdUrl}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{ textTransform: 'none' }}
+                      >
+                        View
+                      </Button>
+                    ) : '-'}
                   </TableCell>
                   <TableCell>
                     <Tooltip title="Edit">
