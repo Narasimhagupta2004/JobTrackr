@@ -32,7 +32,11 @@ export const authApi = {
   // Change user password
   changePassword: (data, token) => api.post("/auth/change-password", data, {
     headers: { Authorization: `Bearer ${token}` }
-  })
+  }),
+  //Dashboard
+   dashboard: (token) => api.get("/dashboard", {
+     headers: { Authorization: `Bearer ${token}` }
+   }),
 };
 
 // Export individual functions for convenience
